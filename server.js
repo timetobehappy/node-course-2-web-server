@@ -4,7 +4,7 @@ const moment = require('moment');
 const hbs = require('hbs');
 const fs = require('fs')
 
-const PORT = 3000;
+const PORT = process.ENV.PORT || 3000;
 
 var app = express();
 //var currentYear = moment().format('YYYY');

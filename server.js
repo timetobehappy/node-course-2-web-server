@@ -58,6 +58,42 @@ var getResponseForUrls = function() {
 
 }
 
+var getResponseForUrlsDesk = function() {
+
+  var lineReader = require('readline').createInterface({
+      input: require('fs').createReadStream('desktoptestgroup.txt')
+  });
+
+  console.log('Inside getResponseForUrls');
+
+    lineReader.on('line', function(line) {
+        console.log('Line from file:', line);
+
+
+        options.url = line;
+        //options.headers.'User-Agent'="Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/58.0.3019.0 Mobile/13B143 Safari/601.1.46";
+        request.head(options, function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+
+                //console.log(typeof(JSON.stringify(response.headers).indexOf('phantomjs-workerid')));
+                if (JSON.stringify(response.headers).indexOf('phantomjs-workerid') == -1) {
+                    console.log(`${line} is going to Production`);
+                    out = out + "<li>" + `${line} is going to Prod` + "</li>";
+                } else {
+                    console.log(`${line} is going to Bot`);
+                    out = out + "<li>" + `${line} is going to Bot` + "</li>";
+                }
+
+            } else {
+                console.log(`${error} for ${line}`);
+            }
+        });
+    });
+
+
+
+}
+
 var app = express();
 //var currentYear = moment().format('YYYY');
 hbs.registerHelper('getCurrentYear', () => {
@@ -75,6 +111,24 @@ hbs.registerHelper('botList', () => {
     console.log('Inside botList');
 
     getResponseForUrls();
+
+
+
+
+    temp=out;
+    out = "<ul id=myList>";
+
+    return temp + "</ul>"+"<br>";
+
+});
+
+hbs.registerHelper('botListDesk', () => {
+
+    var temp;
+
+    console.log('Inside botList');
+
+    getResponseForUrlsDesk();
 
 
 
@@ -105,12 +159,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use(express.static(__dirname + '/public'))
 
 
-app.get('/', (req, res) => {
+app.get('/mobile', (req, res) => {
     res.render('home.hbs', {
-        pageTitle: 'Home Page',
+        pageTitle: 'Mobile Test Page',
         welcomeMessage: 'This is the new home page!!!!.'
     });
 })
+
+app.get('/desktop', (req, res) => {
+    res.render('desktop.hbs', {
+        pageTitle: 'Desktop Test Page',
+        welcomeMessage: 'This is the new home page!!!!.'
+    });
+})
+
 
 app.get('/about', (req, res) => {
     res.render('about.hbs', {

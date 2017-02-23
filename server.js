@@ -43,6 +43,7 @@ var getResponseForUrls = function() {
                 if (JSON.stringify(response.headers).indexOf('phantomjs-workerid') == -1) {
                     //console.log(`${line} is going to Production`);
                     //out = out + "<li>" + `${line} is going to Prod` + "</li>";
+                    out = out + "<li>" + `.........` + "</li>";
                 } else {
                     console.log(`${line} is going to Bot`);
                     out = out + "<li>" + `${line} is going to Bot` + "</li>";

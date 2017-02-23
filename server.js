@@ -39,16 +39,17 @@ var getResponseForUrls = function() {
         //options.headers.'User-Agent'="Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/58.0.3019.0 Mobile/13B143 Safari/601.1.46";
         request.head(options, function(error, response, body) {
             if (!error && response.statusCode == 200) {
-                console.log('\n');
-                console.log((JSON.stringify(response.headers)));
-                console.log('\n');
-                console.log('\n');
-                //if (JSON.stringify(response.headers).indexOf('phantomjs-workerid') == -1) {
-                if (JSON.stringify(response.headers).indexOf("ORIGIN_INDICATOR=BOT") == -1) {
+                // console.log('\n');
+                // console.log((JSON.stringify(response.headers)));
+                // console.log('\n');
+                // console.log('\n');
+                if (JSON.stringify(response.headers).indexOf('phantomjs-workerid') == -1) {
+                //if (JSON.stringify(response.headers).indexOf("ORIGIN_INDICATOR=BOT") == -1) {
                     console.log(`${line} is going to Production`);
                     //out = out + "<li>" + `${line} is going to Prod` + "</li>";
                     out = out + "<li>" + `.........` + "</li>";
-                } else if (JSON.stringify(response.headers).indexOf("ORIGIN_INDICATOR=PROD") == -1) {
+              //  } else if (JSON.stringify(response.headers).indexOf("ORIGIN_INDICATOR=PROD") == -1) {
+                } else {
                     console.log(`${line} is going to Bot`);
                     out = out + "<li>" + `${line} is going to Bot` + "</li>";
                 }

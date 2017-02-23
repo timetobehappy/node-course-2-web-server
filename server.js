@@ -25,6 +25,7 @@ var options = {
 
 var getResponseForUrls = function() {
 
+
   var lineReader = require('readline').createInterface({
       input: require('fs').createReadStream('mobiletestgroup.txt')
   });
@@ -113,6 +114,9 @@ hbs.registerHelper('toUpperCaseHelper', (text) => {
 
 hbs.registerHelper('botList', () => {
 
+    if (port === 3000) {
+
+
     var temp;
 
     console.log('Inside botList');
@@ -126,6 +130,7 @@ hbs.registerHelper('botList', () => {
     out = "<ul id=myList>";
 
     return temp + "</ul>"+"<br>";
+  }
 
 });
 
